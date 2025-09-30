@@ -23,13 +23,45 @@ body {
 .overlay.visible {
   display: flex;
 }
-#campaign-selection-modal {
+#campaign-selection-modal, .modal-content {
   background: #282828;
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
   color: #ffb347;
 }
+.modal-content input {
+  display: block;
+  width: 300px;
+  background: #333;
+  color: #e9e9e9;
+  border: 1px solid #444;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+.modal-actions button {
+  flex-grow: 1;
+  border: none;
+  padding: 0.7rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#confirm-create-campaign-btn {
+  background: #ffb347;
+  color: #222;
+}
+#cancel-create-campaign-btn {
+  background: #555;
+  color: #e9e9e9;
+}
+
 #campaign-choices button {
   display: block;
   width: 100%;
@@ -100,7 +132,7 @@ body {
   background: #333;
   color: #ffb347;
 }
-#create-new-note-btn, #new-campaign-btn {
+#create-new-note-btn, #show-create-campaign-btn {
   background: #ffb347;
   color: #222;
   border: none;
@@ -110,7 +142,7 @@ body {
   cursor: pointer;
   margin-top: auto;
 }
-#new-campaign-btn { margin-top: 1rem; }
+#show-create-campaign-btn { margin-top: 1rem; }
 
 /* Notes Grid */
 main#notes-grid {
