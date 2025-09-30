@@ -99,9 +99,15 @@ function selectCampaign(id, name) {
 newCampaignBtn.onclick = () => {
   const name = prompt("New Campaign Name?");
   if (name && name.trim()) {
-    db.collection("campaigns").add({ name, created: new Date() }).then(() => {
-      loadCampaignsForSelection();
-    });
+    db.collection("campaigns").add({ name, created: new Date() })
+      .then(() => {
+        console.log("Campaign created successfully!");
+        loadCampaignsForSelection();
+      })
+      .catch((error) => {
+        console.error("Error creating campaign: ", error);
+        alert("Could not create the campaign. Please check the console for errors and ensure your Firestore security rules allow writes to the 'campaigns' collection.");
+      });
   }
 };
 
