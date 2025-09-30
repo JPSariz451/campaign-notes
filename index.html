@@ -4,32 +4,49 @@
   <meta charset="UTF-8">
   <title>TTRPG Campaign Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../src/styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <aside id="sidebar">
-      <h1>Campaigns</h1>
-      <ul id="campaign-list"></ul>
+
+  <div id="campaign-selection-overlay" class="overlay visible">
+    <div id="campaign-selection-modal">
+      <h2>Select a Campaign</h2>
+      <div id="campaign-choices"></div>
       <button id="new-campaign-btn">+ New Campaign</button>
-    </aside>
-    <main>
+    </div>
+  </div>
+
+  <div id="note-editor-overlay" class="overlay">
+    <div id="note-editor-modal">
       <header>
-        <input id="note-title" placeholder="Note Title">
-        <button id="save-note-btn">💾 Save</button>
+        <input id="note-title-input" placeholder="Note Title">
+        <input id="note-tags-input" placeholder="Tags (comma-separated)">
+        <button id="save-note-btn">💾 Save & Close</button>
       </header>
       <section id="editor-section">
         <textarea id="editor" placeholder="Write your notes in Markdown..."></textarea>
         <div id="preview"></div>
       </section>
-    </main>
+    </div>
   </div>
-  <script src="../src/marked.min.js"></script>
+  
+  <div id="app">
+    <aside id="sidebar">
+      <h1 id="campaign-title-header">Campaign</h1>
+      <input id="search-bar" placeholder="Search notes...">
+      <h2>File Explorer</h2>
+      <ul id="file-explorer-list"></ul>
+      <h2>Tags</h2>
+      <ul id="tag-filter-list"></ul>
+      <button id="create-new-note-btn">+ New Note</button>
+    </aside>
+    <main id="notes-grid"></main>
+  </div>
+
+  <script src="marked.min.js"></script>
   <script src="https://unpkg.com/yjs@13.6.9/dist/yjs.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-  <script src="../src/firebase.js"></script>
-  <script src="../src/crdt.js"></script>
-  <script src="../src/app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

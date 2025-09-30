@@ -4,68 +4,191 @@ body {
   background: #222;
   color: #e9e9e9;
   height: 100vh;
+  overflow: hidden;
 }
+
+/* Overlays and Modals */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.overlay.visible {
+  display: flex;
+}
+#campaign-selection-modal {
+  background: #282828;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #ffb347;
+}
+#campaign-choices button {
+  display: block;
+  width: 100%;
+  background: #333;
+  color: #e9e9e9;
+  border: 1px solid #444;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#note-editor-modal {
+  background: #1e1e1e;
+  width: 90%;
+  max-width: 1200px;
+  height: 85vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Main App Layout */
 #app {
   display: flex;
   height: 100vh;
 }
 #sidebar {
   background: #191919;
-  width: 240px;
+  width: 260px;
   padding: 1rem;
   border-right: 1px solid #333;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
-#sidebar h1 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+#sidebar h1, #sidebar h2 {
+  font-size: 1.2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
   color: #ffb347;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.4rem;
 }
-#campaign-list {
-  flex: 1 1 auto;
+#sidebar h1 { margin-top: 0; }
+#search-bar {
+  width: 100%;
+  box-sizing: border-box;
+  background: #282828;
+  color: #e9e9e9;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+#file-explorer-list, #tag-filter-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0;
 }
-#campaign-list li {
+#file-explorer-list li, #tag-filter-list li {
   cursor: pointer;
   padding: 0.5rem 0.6rem;
   border-radius: 4px;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   transition: background 0.2s;
 }
-#campaign-list li.selected {
+#file-explorer-list li.selected, #tag-filter-list li.selected {
   background: #333;
   color: #ffb347;
 }
-#new-campaign-btn {
+#create-new-note-btn, #new-campaign-btn {
   background: #ffb347;
   color: #222;
   border: none;
-  padding: 0.5rem;
+  padding: 0.7rem;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
   margin-top: auto;
 }
-main {
+#new-campaign-btn { margin-top: 1rem; }
+
+/* Notes Grid */
+main#notes-grid {
   flex: 1 1 auto;
+  padding: 2rem;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-content: flex-start;
+}
+.note-card {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  height: 200px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
-header {
+.note-card:hover {
+  border-color: #ffb347;
+}
+.note-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffb347;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.note-card-preview {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  overflow: hidden;
+}
+.note-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.note-card-tag {
+  background: #444;
+  color: #ccc;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+}
+
+/* Editor Modal Content */
+#note-editor-modal header {
   display: flex;
   align-items: center;
   background: #181818;
   padding: 1rem;
   border-bottom: 1px solid #333;
+  flex-shrink: 0;
 }
-#note-title {
+#note-title-input {
   font-size: 1.2rem;
   flex: 1;
   background: #282828;
   color: #ffb347;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.7rem;
+  margin-right: 1rem;
+}
+#note-tags-input {
+  font-size: 1rem;
+  width: 250px;
+  background: #282828;
+  color: #e9e9e9;
   border: none;
   border-radius: 4px;
   padding: 0.4rem 0.7rem;
@@ -95,6 +218,7 @@ header {
   font-family: "Fira Mono", Menlo, Monaco, Consolas, monospace;
   outline: none;
   height: 100%;
+  box-sizing: border-box;
 }
 #preview {
   width: 50%;
@@ -102,10 +226,9 @@ header {
   padding: 1rem;
   overflow-y: auto;
   border-left: 1px solid #333;
+  box-sizing: border-box;
 }
 @media (max-width: 800px) {
   #editor-section { flex-direction: column; }
   #editor, #preview { width: 100%; height: 50%; }
-  #sidebar { width: 140px; padding: 0.5rem; }
-  #sidebar h1 { font-size: 1.1rem; }
 }
