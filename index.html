@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TTRPG Campaign Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../src/styles.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <h1>Campaigns</h1>
+      <ul id="campaign-list"></ul>
+      <button id="new-campaign-btn">+ New Campaign</button>
+    </aside>
+    <main>
+      <header>
+        <input id="note-title" placeholder="Note Title">
+        <button id="save-note-btn">💾 Save</button>
+      </header>
+      <section id="editor-section">
+        <textarea id="editor" placeholder="Write your notes in Markdown..."></textarea>
+        <div id="preview"></div>
+      </section>
+    </main>
+  </div>
+  <script src="../src/marked.min.js"></script>
+  <script src="https://unpkg.com/yjs@13.6.9/dist/yjs.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="../src/firebase.js"></script>
+  <script src="../src/crdt.js"></script>
+  <script src="../src/app.js"></script>
+</body>
+</html>
